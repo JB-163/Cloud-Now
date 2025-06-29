@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,8 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.lifecycle.ViewModelProvider
 import com.example.cloudnow.ui.AppBar
 import com.example.cloudnow.ui.SearchDrawer
+import com.example.cloudnow.ui.WeatherPage
+import com.example.cloudnow.ui.WeatherViewModel
 import com.example.cloudnow.ui.theme.CloudNowTheme
 
 class MainActivity : ComponentActivity() {
@@ -29,6 +30,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CloudNowTheme {
+
+                // ViewModel instance.
+                val weatherModel = ViewModelProvider(this)[WeatherViewModel::class.java]
 
                 // Variable to handle the search drawer.
                 var showSearch by remember {
@@ -61,8 +65,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     ) { innerPadding ->
-                        Greeting(
-                            name = "Android",
+                        WeatherPage(
                             modifier = Modifier.padding(innerPadding)
                         )
                     }
@@ -71,18 +74,11 @@ class MainActivity : ComponentActivity() {
                         isVisible = showSearch,
                         onClose = {
                             showSearch = false
-                        }
+                        },
+                        viewModel = weatherModel
                     )
                 }
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }

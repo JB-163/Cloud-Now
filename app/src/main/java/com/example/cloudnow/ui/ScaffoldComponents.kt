@@ -46,7 +46,8 @@ import kotlinx.coroutines.delay
 @Composable
 fun SearchDrawer(
     isVisible : Boolean,
-    onClose : () -> Unit
+    onClose : () -> Unit,
+    viewModel : WeatherViewModel
 ) {
 
     // variable for the focus requester.
@@ -115,6 +116,7 @@ fun SearchDrawer(
                             keyboardController?.hide()
                             onClose()
                             focusRequester.freeFocus()
+                            viewModel.getCity(text)
                         }
                     )
                 )

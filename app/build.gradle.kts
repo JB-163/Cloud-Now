@@ -63,4 +63,8 @@ dependencies {
     implementation (libs.animation)
     // Material3 design dependency
     implementation(libs.material3)
+    // ViewModel dependency
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    // ViewModel utilities for Compose
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 }
