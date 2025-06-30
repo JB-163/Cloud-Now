@@ -67,4 +67,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     // ViewModel utilities for Compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    // Retrofit dependency
+    implementation(libs.retrofit)
+    // Retrofit convertor factory (Gson)
+    implementation(libs.retrofit2.converter.gson)
 }
