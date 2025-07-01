@@ -66,7 +66,8 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { innerPadding ->
                         WeatherPage(
-                            modifier = Modifier.padding(innerPadding)
+                            modifier = Modifier.padding(innerPadding),
+                            viewModel = weatherModel
                         )
                     }
 

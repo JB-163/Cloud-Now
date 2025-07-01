@@ -71,4 +71,6 @@ dependencies {
     implementation(libs.retrofit)
     // Retrofit convertor factory (Gson)
     implementation(libs.retrofit2.converter.gson)
+    // Livedata dependency
+    implementation(libs.androidx.runtime.livedata)
 }
