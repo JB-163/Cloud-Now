@@ -73,4 +73,6 @@ dependencies {
     implementation(libs.retrofit2.converter.gson)
     // Livedata dependency
     implementation(libs.androidx.runtime.livedata)
+    // Coil dependency to load image from the server.
+    implementation(libs.coil.compose)
 }

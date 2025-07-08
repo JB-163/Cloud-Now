@@ -21,7 +21,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = LightBackground,
     secondary = LightAccent,
-    onPrimary = LightPrimaryText,
+    onPrimary = DarkPrimaryText,
     onSecondary = LightSecondaryText
 
     /* Other default colors to override

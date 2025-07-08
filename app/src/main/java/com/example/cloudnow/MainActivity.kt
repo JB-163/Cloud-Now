@@ -12,6 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
@@ -33,6 +34,11 @@ class MainActivity : ComponentActivity() {
 
                 // ViewModel instance.
                 val weatherModel = ViewModelProvider(this)[WeatherViewModel::class.java]
+
+                // variable to handle the city name in App bar.
+                var cityName by rememberSaveable {
+                    mutableStateOf("")
+                }
 
                 // Variable to handle the search drawer.
                 var showSearch by remember {
@@ -59,6 +65,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         topBar = {
                             AppBar(
+                                cityName = cityName,
                                 onSearchClick = {
                                     showSearch = true
                                 }
@@ -76,7 +83,10 @@ class MainActivity : ComponentActivity() {
                         onClose = {
                             showSearch = false
                         },
-                        viewModel = weatherModel
+                        viewModel = weatherModel,
+                        onCitySearched = {
+                            searchedCity -> cityName = searchedCity
+                        }
                     )
                 }
             }

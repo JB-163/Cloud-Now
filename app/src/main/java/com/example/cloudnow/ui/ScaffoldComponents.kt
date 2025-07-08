@@ -3,6 +3,8 @@ package com.example.cloudnow.ui
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,19 +37,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
 import kotlinx.coroutines.delay
 
 @Composable
 fun SearchDrawer(
     isVisible : Boolean,
     onClose : () -> Unit,
-    viewModel : WeatherViewModel
+    viewModel : WeatherViewModel,
+    onCitySearched : (String) -> Unit
 ) {
 
     // variable for the focus requester.
@@ -72,7 +78,9 @@ fun SearchDrawer(
         exit = slideOutVertically(targetOffsetY = {-it})
     ) {
         Surface(
-            modifier = Modifier.fillMaxWidth().height(150.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(150.dp),
             color = MaterialTheme.colorScheme.primary,
             shadowElevation = 4.dp,
             shape = RoundedCornerShape(
@@ -81,7 +89,9 @@ fun SearchDrawer(
             )
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 var text by rememberSaveable {
@@ -95,14 +105,16 @@ fun SearchDrawer(
                             color = MaterialTheme.colorScheme.onPrimary,
                             style = MaterialTheme.typography.labelLarge)
                     },
-                    modifier = Modifier.weight(1f).focusRequester(focusRequester),
+                    modifier = Modifier
+                        .weight(1f)
+                        .focusRequester(focusRequester),
                     colors = TextFieldDefaults.colors(
                         focusedTextColor = MaterialTheme.colorScheme.onPrimary,
                         unfocusedTextColor = MaterialTheme.colorScheme.onPrimary,
                         focusedContainerColor = MaterialTheme.colorScheme.primary,
                         unfocusedContainerColor = MaterialTheme.colorScheme.primary,
-                        cursorColor = MaterialTheme.colorScheme.secondary,
-                        focusedIndicatorColor = MaterialTheme.colorScheme.secondary
+                        cursorColor = MaterialTheme.colorScheme.onSecondary,
+                        focusedIndicatorColor = MaterialTheme.colorScheme.onSecondary
                     ),
                     singleLine = true,
                     keyboardOptions = KeyboardOptions(
@@ -117,6 +129,7 @@ fun SearchDrawer(
                             onClose()
                             focusRequester.freeFocus()
                             viewModel.getCity(text)
+                            onCitySearched(text)
                         }
                     )
                 )
@@ -128,7 +141,7 @@ fun SearchDrawer(
                     Icon(
                         imageVector = Icons.Filled.Close,
                         contentDescription = "close",
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.onSecondary
                     )
                 }
             }
@@ -139,33 +152,46 @@ fun SearchDrawer(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppBar(
-    onSearchClick : () -> Unit
+    onSearchClick: () -> Unit,
+    cityName: String
 ) {
-    TopAppBar(
-        title = {
-            Text(
-                "Weather",
-                color = MaterialTheme.colorScheme.onPrimary,
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+    Box(
+        modifier = Modifier.fillMaxWidth()
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color("#59469d".toColorInt()),
+                        Color("#643d67".toColorInt())
+                    )
                 )
-        },
-        navigationIcon = {
-            IconButton(
-                onClick = {
-                    onSearchClick()
-                },
-                modifier = Modifier.size(50.dp),
+            )
+    ) {
+        TopAppBar(
+            title = {
+                Text(
+                    text = if(cityName.isNotBlank()) cityName else "Search",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            navigationIcon = {
+                IconButton(
+                    onClick = {
+                        onSearchClick()
+                    },
+                    modifier = Modifier.size(50.dp),
                 ) {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = "Menu",
-                    tint = MaterialTheme.colorScheme.secondary
-                )
-            }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
+                    Icon(
+                        imageVector = Icons.Filled.Search,
+                        contentDescription = "Menu",
+                        tint = MaterialTheme.colorScheme.onSecondary
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color.Transparent
+            )
         )
-    )
+    }
 }
