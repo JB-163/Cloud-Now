@@ -172,7 +172,7 @@ fun WeatherDetails(data : WeatherModel) {
 fun WeatherCards(value : String, unit : String, icon : Int) {
     Box(
         modifier = Modifier
-            .size(height = 150.dp, width = 100.dp)
+            .size(height = 150.dp, width = 120.dp)
             .background(
                 color = colorResource(id = R.color.purple),
                 shape = RoundedCornerShape(16.dp)
