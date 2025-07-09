@@ -170,7 +170,7 @@ fun AppBar(
             title = {
                 Text(
                     text = if(cityName.isNotBlank()) cityName else "Search",
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = MaterialTheme.colorScheme.surface,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )

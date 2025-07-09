@@ -1,6 +1,5 @@
 package com.example.cloudnow.ui
 
-import androidx.annotation.ColorRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -103,7 +102,7 @@ fun WeatherDetails(data : WeatherModel) {
     ) {
         Text(
             text = data.current.condition.text,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.surface,
             fontSize = 16.sp
         )
         AsyncImage(
@@ -115,12 +114,12 @@ fun WeatherDetails(data : WeatherModel) {
         )
         Text(
             text = formatDateTime(data.current.last_updated),
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.surface,
             textAlign  = TextAlign.Center
         )
         Text(
             text = "${data.current.temp_c}°C",
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = MaterialTheme.colorScheme.surface,
             fontSize = 64.sp,
             fontWeight = FontWeight.Bold,
             textAlign  = TextAlign.Center,
@@ -187,7 +186,7 @@ fun WeatherCards(value : String, unit : String, icon : Int) {
         ) {
             Text(
                 text = value,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.surface,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold
             )
@@ -200,7 +199,7 @@ fun WeatherCards(value : String, unit : String, icon : Int) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = unit,
-                color = MaterialTheme.colorScheme.onPrimary,
+                color = MaterialTheme.colorScheme.surface,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold
             )
